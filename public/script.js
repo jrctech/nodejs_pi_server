@@ -2,8 +2,8 @@ const ws=new WebSocket('ws://192.168.1.112:8082');
 const txtReceived = document.getElementById('txtReceived');
 const lblClientsConnected = document.getElementById('lblClientsConnected');
 ws.onopen = function(){
-    console.log('We are connected'); 
-};
+    console.log('We are connected');   
+} 
 
 ws.onmessage = function(e){
     console.log(e.data);
