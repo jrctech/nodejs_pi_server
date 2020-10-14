@@ -7,7 +7,7 @@ const ledClientConnected = new GPIO(17, 'out'); //use GPIO pin 17, and specify t
 var clientsConnected = 0;
 
 function blink(){
-    LED.writeSync(!LED.readSync());
+    LED.writeSync(LED.readSync() ^ 1);
 }
 const x=setInterval(blink, 200);
 
