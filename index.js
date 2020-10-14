@@ -5,9 +5,15 @@ const GPIO = require('onoff').Gpio; //include onoff to interact with the GPIO
 const LED = new GPIO(4, 'out'); //use GPIO pin 4, and specify that it is output
 const ledClientConnected = new GPIO(17, 'out'); //use GPIO pin 17, and specify that it is output
 var clientsConnected = 0;
+var i=0;
 
 function blink(){
+    i++;
     LED.writeSync(LED.readSync() ^ 1);
+    if (i==10){
+        i=0;
+        clearInterval(x);
+    }
 }
 const x=setInterval(blink, 200);
 
