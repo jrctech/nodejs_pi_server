@@ -9,7 +9,7 @@ var clientsConnected = 0;
 function blink(){
     LED.writeSync(!LED.readSync());
 }
-const x=setInterval(blink(), 200);
+const x=setInterval(blink, 200);
 
 /*
  * Settings:
