@@ -19,11 +19,11 @@ function wsConnect(){
 			msgTXT = msgJSON.msg;
 		else if (msgJSON.ledStatus != null){
 			if (msgJSON.ledStatus== 1){
-				btnLED.style.backgroundColor = '#58FF33';
+				btnLED.style.backgroundColor = 'green';
 				msgTXT='Led is On';
 			}
 			else{
-				btnLED.style.backgroundColor = '#C80D12';
+				btnLED.style.backgroundColor = 'red';
 				msgTXT='Led is Off';
 			}
 		}
