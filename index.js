@@ -4,6 +4,7 @@ const WebSocket = require('ws');
 const GPIO = require('onoff').Gpio; //include onoff to interact with the GPIO
 const LED = new GPIO(4, 'out'); //use GPIO pin 4, and specify that it is output
 const ledClientConnected = new GPIO(17, 'out'); //use GPIO pin 17, and specify that it is output
+const ledHeartbeat = new GPIO(27, 'out'); //use GPIO pin 27, and specify that it is output
 var clientsConnected = 0;
 var i=0;
 
@@ -15,6 +16,16 @@ function blink(){
         clearInterval(x);
     }
 }
+
+function noop() {}
+ 
+function heartbeat() {
+    this.isAlive = true;
+    ledHeartbeat.writeSync(1);
+    setTimeout(function(){ledHeartbeat.writeSync(0);}, 250);
+}
+
+
 const x=setInterval(blink, 100);
 
 /*
@@ -38,6 +49,9 @@ const wss = new WebSocket.Server({ port:8082}, () => {
 });
 
 wss.on('connection', (ws, req) => {
+    ws.isAlive = true;
+    ws.on('pong', heartbeat);
+
     console.log('New Client connected! ID: ', req.headers["sec-websocket-key"]);
     ws.send('{"Welcome":"Welcome to the Raspi GPIO Server!!"}');
     clientsConnected++;
@@ -70,6 +84,15 @@ wss.on('connection', (ws, req) => {
 			wssBroadcast(`{"clientsConnected": ${clientsConnected}}`);
     })
 });
+
+const interval = setInterval(function ping() {
+    wss.clients.forEach(function each(ws) {
+      if (ws.isAlive === false) return ws.terminate();
+   
+      ws.isAlive = false;
+      ws.ping(noop);
+    });
+  }, 2500);
 
 function wssBroadcast(data) {
     wss.clients.forEach(function each(client) {
