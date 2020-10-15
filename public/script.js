@@ -5,8 +5,7 @@ const btnOpenClose = document.getElementById('btnOpenClose');
 const btnKick = document.getElementById('btnKick');
 
 function wsConnect(){
-	console.log(document.location.hostname);
-	var ws=new WebSocket('ws://192.168.1.112:8082');  //ws exists only in function scope
+	var ws=new WebSocket('ws://' + document.location.hostname + ':8082');  //ws exists only in function scope
 	ws.onopen = function(){
 		console.log('We are connected'); 
 		btnOpenClose.innerText = "Close Connection"  
