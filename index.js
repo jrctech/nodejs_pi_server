@@ -7,10 +7,6 @@ const ledClientConnected = new GPIO(17, 'out'); //use GPIO pin 17, and specify t
 var clientsConnected = 0;
 var i=0;
 
-app.Server.on('upgrade', function(){
-    app.send("<h1>upgrade...</h1>");
-});
-
 function blink(){
     i++;
     LED.writeSync(LED.readSync() ^ 1);
