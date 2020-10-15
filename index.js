@@ -17,7 +17,7 @@ function blink(){
     }
 }
 
-function noop() {}
+/* function noop() {}
  
 function heartbeat() {
     this.isAlive = true;
@@ -34,7 +34,7 @@ function ping() {
       ws.ping(noop);
     });
   }
-
+ */
 
 const x=setInterval(blink, 100);
 
@@ -59,12 +59,11 @@ const wss = new WebSocket.Server({ port:8082, clientTracking: true}, () => {
 });
 
 wss.on('connection', (ws, req) => {
-    ws.isAlive = true;
-    const interval = setInterval(ping, 2500);
-    ws.on('pong', heartbeat);
+    //ws.isAlive = true;
+    //const interval = setInterval(ping, 2500);
+    //ws.on('pong', heartbeat);
 
     console.log('New Client connected! ID: ', req.headers["sec-websocket-key"]);
-    console.log(wss.clients);
     ws.send('{"Welcome":"Welcome to the Raspi GPIO Server!!"}');
     clientsConnected++;
     wssBroadcast(`{"clientsConnected": ${clientsConnected}}`);
@@ -92,7 +91,7 @@ wss.on('connection', (ws, req) => {
         clientsConnected--;
         if (clientsConnected == 0){
             ledClientConnected.writeSync(0);
-            clearInterval(interval);   
+            //clearInterval(interval);   
         }
 		else
 			wssBroadcast(`{"clientsConnected": ${clientsConnected}}`);
