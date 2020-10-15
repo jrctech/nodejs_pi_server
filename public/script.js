@@ -55,8 +55,10 @@ btnOpenClose.addEventListener('click', function(){
 		ws.send("DISCONNECT");
 		btnOpenClose.innerText = "Open Connection";
 	}
-	else
+	else{
 		ws=new WebSocket('ws://192.168.1.112:8082');
+		btnOpenClose.innerText = "Close Connection";
+	}
 });
 btnKick.addEventListener('click', function(){
 	ws.send("KICK");
