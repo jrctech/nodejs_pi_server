@@ -60,7 +60,10 @@ wss.on('connection', (ws, req) => {
 					console.log('Led is now OFF');
 					wssBroadcast('{"ledStatus": 0}');
 				}		
-		}
+        }
+        else if (data == 'DISCONNECT'){
+            ws.terminate();
+        }
     })
 
     ws.on('close', () => {
