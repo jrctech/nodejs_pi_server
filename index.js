@@ -62,6 +62,7 @@ wss.on('connection', (ws, req) => {
 				}		
         }
         else if (data == 'DISCONNECT'){
+            ws.send('{"msg":"You have been disconnected from server!"}');
             ws.terminate();
         }
         else if (data == 'KICK'){
