@@ -41,7 +41,7 @@ const wss = new WebSocket.Server({ port:8082, clientTracking: true}, () => {
 
 wss.on('connection', (ws, req) => {
     console.log('New Client connected! ID: ', req.headers["sec-websocket-key"]);
-    ws.send('{"Welcome":"Welcome to the Raspi GPIO Server!!"}');
+    ws.send('{"msg":"Welcome to the Raspi GPIO Server!!"}');
     clientsConnected++;
     wssBroadcast(`{"clientsConnected": ${clientsConnected}}`);
     ledClientConnected.writeSync(1);

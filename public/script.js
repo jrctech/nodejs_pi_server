@@ -15,7 +15,7 @@ function wsConnect(){
 		console.log(e.data);
 		const msgJSON= JSON.parse(e.data);
 		var msgTXT='';
-		if (msgJSON.Welcome != null)
+		if (msgJSON.msg != null)
 			msgTXT = msgJSON.Welcome;
 		else if (msgJSON.ledStatus != null){
 			if (msgJSON.ledStatus== 1){
