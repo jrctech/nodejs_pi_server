@@ -64,7 +64,7 @@ wss.on('connection', (ws, req) => {
     ws.on('pong', heartbeat);
 
     console.log('New Client connected! ID: ', req.headers["sec-websocket-key"]);
-    console.log(wss.Server.clients);
+    console.log(wss.clients);
     ws.send('{"Welcome":"Welcome to the Raspi GPIO Server!!"}');
     clientsConnected++;
     wssBroadcast(`{"clientsConnected": ${clientsConnected}}`);
