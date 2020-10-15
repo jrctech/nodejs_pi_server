@@ -1,4 +1,4 @@
-const ws=new WebSocket('ws://192.168.1.112:8082');
+var ws=new WebSocket('ws://192.168.1.112:8082');
 const txtReceived = document.getElementById('txtReceived');
 const lblClientsConnected = document.getElementById('lblClientsConnected');
 const btnOpenClose = document.getElementById('btnOpenClose');
@@ -54,7 +54,7 @@ btnOpenClose.addEventListener('click', function(){
 	if(btnOpenClose.innerText == 'Close Connection')
 		ws.send("DISCONNECT");
 	else
-		const ws=new WebSocket('ws://192.168.1.112:8082');
+		ws=new WebSocket('ws://192.168.1.112:8082');
 });
 btnKick.addEventListener('click', function(){
 	ws.send("KICK");
