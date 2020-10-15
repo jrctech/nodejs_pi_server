@@ -65,8 +65,8 @@ wss.on('connection', (ws, req) => {
             ws.terminate();
         }
         else if (data == 'KICK'){
-            wss.ws.forEach(function each(ws) {
-                ws.terminate();
+            wss.clients.forEach(function each(client) {
+                client.terminate();
             });
         }
     })
