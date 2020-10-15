@@ -1,11 +1,12 @@
 const ws=new WebSocket('ws://192.168.1.112:8082');
 const txtReceived = document.getElementById('txtReceived');
 const lblClientsConnected = document.getElementById('lblClientsConnected');
-const btnCloseConnection = document.getElementById('btnCloseConnection');
+const btnOpenClose = document.getElementById('btnOpenClose');
 const btnKick = document.getElementById('btnKick');
 
 ws.onopen = function(){
-    console.log('We are connected');   
+	console.log('We are connected'); 
+	btnOpenClose.innerText = "Close Connection"  
 } 
 
 ws.onmessage = function(e){
@@ -41,15 +42,19 @@ ws.onerror = function(e){
 }
 ws.onclose = function(e){
     console.log('Connection closed');
-    console.log(e);
+	console.log(e);
+	btnOpenClose.innerText = "Open Connection";
 }
 
 
 btnLED.addEventListener('click', function(){
 	ws.send("TOGGLE");
 });
-btnCloseConnection.addEventListener('click', function(){
-	ws.send("DISCONNECT");
+btnOpenClose.addEventListener('click', function(){
+	if(btnOpenClose.innerText == 'Close Connection')
+		ws.send("DISCONNECT");
+	else
+		const ws=new WebSocket('ws://192.168.1.112:8082');
 });
 btnKick.addEventListener('click', function(){
 	ws.send("KICK");
