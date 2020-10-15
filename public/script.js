@@ -51,8 +51,10 @@ btnLED.addEventListener('click', function(){
 	ws.send("TOGGLE");
 });
 btnOpenClose.addEventListener('click', function(){
-	if(btnOpenClose.innerText == 'Close Connection')
+	if(btnOpenClose.innerText == 'Close Connection'){
 		ws.send("DISCONNECT");
+		btnOpenClose.innerText = "Open Connection";
+	}
 	else
 		ws=new WebSocket('ws://192.168.1.112:8082');
 });
