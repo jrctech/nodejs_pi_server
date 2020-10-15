@@ -16,7 +16,7 @@ function wsConnect(){
 		const msgJSON= JSON.parse(e.data);
 		var msgTXT='';
 		if (msgJSON.msg != null)
-			msgTXT = msgJSON.Welcome;
+			msgTXT = msgJSON.msg;
 		else if (msgJSON.ledStatus != null){
 			if (msgJSON.ledStatus== 1){
 				btnLED.style.backgroundColor = '#58FF33';
