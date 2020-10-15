@@ -64,6 +64,11 @@ wss.on('connection', (ws, req) => {
         else if (data == 'DISCONNECT'){
             ws.terminate();
         }
+        else if (data == 'KICK'){
+            wss.ws.forEach(function each(ws) {
+                ws.terminate();
+            });
+        }
     })
 
     ws.on('close', () => {

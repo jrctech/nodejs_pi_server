@@ -1,6 +1,7 @@
 const ws=new WebSocket('ws://192.168.1.112:8082');
 const txtReceived = document.getElementById('txtReceived');
 const lblClientsConnected = document.getElementById('lblClientsConnected');
+const btnCloseConnection = document.getElementById('btnCloseConnection');
 const btnKick = document.getElementById('btnKick');
 
 ws.onopen = function(){
@@ -47,8 +48,11 @@ ws.onclose = function(e){
 btnLED.addEventListener('click', function(){
 	ws.send("TOGGLE");
 });
-btnKick.addEventListener('click', function(){
+btnCloseConnection.addEventListener('click', function(){
 	ws.send("DISCONNECT");
+});
+btnKick.addEventListener('click', function(){
+	ws.send("KICK");
 });
 
 
