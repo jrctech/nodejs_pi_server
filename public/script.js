@@ -29,6 +29,7 @@ function wsConnect(){
 		}
 		if(msgJSON.clientsConnected != null){
 			lblClientsConnected.innerHTML = `Clients connected to the server: ${msgJSON.clientsConnected}`;
+			lblClientsConnected.style.color = 'green';
 		}
 		
 		if(msgTXT != ''){
@@ -46,6 +47,8 @@ function wsConnect(){
 		console.log('Connection closed');
 		console.log(e);
 		btnOpenClose.innerText = "Open Connection";
+		lblClientsConnected.innerHTML = "Disconnected from server";
+		lblClientsConnected.style.color = 'red';
 	}
 
 	return ws;	//Returns ws object to be accesible outside function
