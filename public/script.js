@@ -5,7 +5,7 @@ const btnOpenClose = document.getElementById('btnOpenClose');
 const btnKick = document.getElementById('btnKick');
 
 function wsConnect(){
-	var ws=new WebSocket('ws://192.168.1.112:8082');
+	var ws=new WebSocket('ws://192.168.1.112:8082');  //ws exists only in function scope
 	ws.onopen = function(){
 		console.log('We are connected'); 
 		btnOpenClose.innerText = "Close Connection"  
@@ -47,10 +47,12 @@ function wsConnect(){
 		console.log(e);
 		btnOpenClose.innerText = "Open Connection";
 	}
+
+	return ws;	//Returns ws object to be accesible outside function
 };
 
 
-wsConnect();
+var ws = wsConnect();  //This exists on global scope
 
 btnLED.addEventListener('click', function(){
 	ws.send("TOGGLE");
@@ -61,7 +63,7 @@ btnOpenClose.addEventListener('click', function(){
 		btnOpenClose.innerText = "Open Connection";
 	}
 	else{
-		wsConnect();
+		ws = wsConnect();
 		//ws=new WebSocket('ws://192.168.1.112:8082');
 		//btnOpenClose.innerText = "Close Connection";
 	}
