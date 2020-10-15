@@ -25,6 +25,15 @@ function heartbeat() {
     setTimeout(function(){ledHeartbeat.writeSync(0);}, 250);
 }
 
+function ping() {
+    wss.clients.forEach(function each(ws) {
+      if (ws.isAlive === false) return ws.terminate();
+   
+      ws.isAlive = false;
+      ws.ping(noop);
+    });
+  }
+
 
 const x=setInterval(blink, 100);
 
@@ -50,6 +59,7 @@ const wss = new WebSocket.Server({ port:8082}, () => {
 
 wss.on('connection', (ws, req) => {
     ws.isAlive = true;
+    const interval = setInterval(ping, 2500);
     ws.on('pong', heartbeat);
 
     console.log('New Client connected! ID: ', req.headers["sec-websocket-key"]);
@@ -87,14 +97,6 @@ wss.on('connection', (ws, req) => {
     })
 });
 
-const interval = setInterval(function ping() {
-    wss.clients.forEach(function each(ws) {
-      if (ws.isAlive === false) return ws.terminate();
-   
-      ws.isAlive = false;
-      ws.ping(noop);
-    });
-  }, 2500);
 
 function wssBroadcast(data) {
     wss.clients.forEach(function each(client) {
