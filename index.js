@@ -44,6 +44,7 @@ wss.on('connection', (ws, req) => {
     ws.send('{"msg":"Welcome to the Raspi GPIO Server!!"}');
     clientsConnected++;
     wssBroadcast(`{"clientsConnected": ${clientsConnected}}`);
+    ws.send(`{"ledStatus": ${LED.readSync()}`);
     ledClientConnected.writeSync(1);
 
     ws.on('message', (data) => {
