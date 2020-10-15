@@ -9,7 +9,7 @@ var clientsConnected = 0;
 var i=0;
 
 function blink(){
-    ledHeartbeat.writeSync(LED.readSync() ^ 1);
+    ledHeartbeat.writeSync(ledHeartbeat.readSync() ^ 1);
 }
 
 const x=setInterval(blink, 500);
