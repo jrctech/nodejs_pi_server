@@ -78,8 +78,10 @@ wss.on('connection', (ws, req) => {
     ws.on('close', () => {
         console.log('Client has disconnected!');
         clientsConnected--;
-        if (clientsConnected == 0)
-			ledClientConnected.writeSync(0);
+        if (clientsConnected == 0){
+            ledClientConnected.writeSync(0);
+            clearInterval(interval);   
+        }
 		else
 			wssBroadcast(`{"clientsConnected": ${clientsConnected}}`);
     })
