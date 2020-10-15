@@ -21,8 +21,8 @@ function noop() {}
  
 function heartbeat() {
     this.isAlive = true;
-    ledHeartbeat.writeSync(1);
-    setTimeout(function(){ledHeartbeat.writeSync(0);}, 250);
+    ledHeartbeat.writeSync(0);
+    //setTimeout(function(){ledHeartbeat.writeSync(0);}, 250);
 }
 
 function ping() {
@@ -30,6 +30,7 @@ function ping() {
       if (ws.isAlive === false) return ws.terminate();
    
       ws.isAlive = false;
+      ledHeartbeat.writeSync(1);
       ws.ping(noop);
     });
   }
