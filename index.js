@@ -54,7 +54,7 @@ app.listen(app.get('port'), () => {
 		console.log('HTTP server started on port: ', app.get('port')); 
 });
 
-const wss = new WebSocket.Server({ port:8082}, () => {
+const wss = new WebSocket.Server({ port:8082, clientTracking: true}, () => {
     console.log('Socket server listening on port ', wss.options.port);
 });
 
@@ -64,6 +64,7 @@ wss.on('connection', (ws, req) => {
     ws.on('pong', heartbeat);
 
     console.log('New Client connected! ID: ', req.headers["sec-websocket-key"]);
+    console.log(wss.Server.clients);
     ws.send('{"Welcome":"Welcome to the Raspi GPIO Server!!"}');
     clientsConnected++;
     wssBroadcast(`{"clientsConnected": ${clientsConnected}}`);
