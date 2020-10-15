@@ -65,6 +65,8 @@ wss.on('connection', (ws, req) => {
             ws.terminate();
         }
         else if (data == 'KICK'){
+            wssBroadcast('{"msg":"All clients have been disconnected!"}');
+            wssBroadcast(`{"clientsConnected": ${0}}`);
             wss.clients.forEach(function each(client) {
                 client.terminate();
             });
